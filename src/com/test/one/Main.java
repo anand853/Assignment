@@ -1,6 +1,6 @@
 package com.test.one;
 
-public class Mainy {
+public class Main {
 
 	public static void main(String[] args) {
 

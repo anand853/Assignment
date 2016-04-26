@@ -8,24 +8,53 @@ public class Input {
 	String itemNames[];
 	int itemPriority[];
 	int count;
+	User user = new User();
 
 	public String readUserName() {
 		System.out.println("Enter your Name here =>");
+
 		String name = scan.nextLine();
-		System.out.println("The name you entered is " + name);
+		user.setName(name);
+		System.out.println("The name you entered is " + user.getName());
+		try {
+			isAlpha(name);
+		} catch (NameNotString e) {
+
+			e.printStackTrace();
+		}
+
 		return name;
 
+	}
+
+	public boolean isAlpha(String name) throws NameNotString {
+		char[] chars = user.getName().toCharArray();
+
+		for (char c : chars) {
+			if (!Character.isLetter(c)) {
+				throw new NameNotString(user.getName() + " contains Number(s) =>");
+			}
+		}
+
+		return true;
 	}
 
 	public String[] NumberOfItemsToBuy() {
 		System.out.println("Count of Items to buy =>");
 		count = scan.nextInt();
+		user.setCount(count);
 		itemNames = new String[count];
 		scan.nextLine();
 		System.out.println("The count you entered is " + count);
 		for (int i = 0; i < count; i++) {
-			System.out.println(i + " Please enter the prod name " + count);
+			System.out.println(" Please enter the prod name " + count);
 			itemNames[i] = scan.nextLine();
+			try {
+				isAlpha(itemNames[i]);
+			} catch (NameNotString e) {
+
+				e.printStackTrace();
+			}
 
 		}
 		return itemNames;
@@ -45,7 +74,9 @@ public class Input {
 		for (int i = 0; i < names.length; i++) {
 			System.out.println(" Enter the priority for the prod name " + itemNames[i]);
 			itemPriority[i] = scan.nextInt();
-			System.out.println(i + " The prod name is " + itemNames[i] + "The product priorty is " + itemPriority[i]);
+			user.setItemPriority(itemPriority);
+			System.out.println(i + " The prod name is " + user.getItemPriority()[i] + " and the product priorty is "
+					+ user.getItemPriority()[i]);
 		}
 		return itemPriority;
 
